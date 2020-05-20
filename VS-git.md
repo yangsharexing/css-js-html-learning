@@ -38,5 +38,3 @@ VS克隆项目到本地
    &emsp; &emsp;mkdire test
 4、克隆项目就可以用VS打开了
    git clone https://github.com/yangsharexing/   //你的仓库地址
-
-
