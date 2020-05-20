@@ -1,0 +1,81 @@
+<html>
+
+<head>
+
+    <style type="text/css">
+        .ranking_list li:before {
+            counter-increment: ranking_list_li;
+            content: counter(ranking_list_li);
+            color: #ffffff;
+            position: absolute;
+            left: 0;
+            width: 18px;
+            background: #818181;
+            text-align: center;
+            font-size: 10px;
+            height: 35px;
+        }
+
+        li {
+
+            list-style: none;
+            margin-left: -20%;
+            height: 35px;
+
+        }
+
+        .ranking_list li:first-child:before {
+            background: #e05102;
+        }
+
+        .ranking_list li:nth-child(2):before {
+            background: #830abb;
+        }
+
+        .ranking_list li:nth-child(3):before {
+            background: #1ba809;
+        }
+
+
+        .ranking_list li:first-child {
+            background: #e05102;
+        }
+
+        .ranking_list li:nth-child(2) {
+            background: #830abb;
+        }
+
+        .ranking_list li:nth-child(3) {
+            background: #1ba809;
+        }
+    </style>
+
+    <title>位置</title>
+    <script language="javascript" type="text/javascript">
+
+
+        function changeText(id) {
+            var mouseX = event.clientX + document.body.scrollLeft;//鼠标x位置
+            var mouseY = event.clientY + document.body.scrollTop;//鼠标y位置
+            document.getElementById("8").style.color = "blue";
+            document.getElementById("8").style.marginLeft = mouseX;
+            document.getElementById("8").style.marginTop = mouseY;
+            document.getElementById("8").style.display = "block";
+        }
+
+    </script>
+
+</head>
+
+<body style="margin:0px;" onclick="changeText(this)">
+
+    <div id="8" style="position: absolute; z-index: 999;width: 100px;height: 200px;display:none;">
+        <ul class='ranking_list'>
+            <li>中国</li>
+            <li>美国</li>
+            <li>英国</li>
+        </ul>
+    </div>
+</body>
+
+</html>
