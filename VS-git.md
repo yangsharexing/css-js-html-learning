@@ -33,7 +33,7 @@ VS克隆项目到本地
 2 、打开 Git Bash 命令行  设置全局用户信息
 	&emsp;&emsp;git config --global user.name "yangsharexing" 
 	&emsp;&emsp;git config --global user.email "1621456923@qq.com"
-    &emsp;&emsp;git config --global credential.helper store   
+    &emsp;&emsp;git config --global credential.helper store      
 3、创建项目目录 
    &emsp; &emsp;mkdire test
 4、克隆项目就可以用VS打开了
