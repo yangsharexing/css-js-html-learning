@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>手风琴菜单</title>
+    <style type='text/css'>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            list-style: none;
+        }
+
+
+        a {
+            color: darkblue;
+            text-decoration: none;
+            float: left;
+            font-size: 50px;
+            background-color: lightpink;
+            border: dashed;
+            width: 220px;
+            height: 300px;
+            text-align: center;
+            line-height: 300px;
+
+        }
+
+        /*这里必须设置让a靠左，然后再让学员姓名那些li靠左，否则队名和学员姓名还是会纵向排列，不能肩并肩。为了美观我还让a元素里的文字横向居中，纵向靠近中间。*/
+
+        #menu {
+            margin: 200px;
+        }
+
+
+        .boys {
+            float: left;
+            font-size: 20px;
+            width: 60px;
+            height: 300px;
+            display: none;
+            margin-top: 120px;
+
+        }
+
+        #menu>li:hover .boys {
+            display: block;
+        }
+
+        /*在队名那一层的li上悬停的时候，学员的名字就会显现出来*/
+    </style>
+</head>
+
+<body>
+    <ul id='menu'>
+        <li><a href='#'>Vocal</a>
+            <ul class='boys'>
+                <li>高嘉朗</li>
+                <li>李鑫一</li>
+            </ul>
+        </li>
+        <li><a href='#'>Dancer</a>
+            <ul class='boys'>
+                <li>王晨艺</li>
+                <li>刘也</li>
+                <li>丰楚轩</li>
+                <li>秦天</li>
+            </ul>
+        </li>
+        <li><a href='#'>Rapper</a>
+            <ul class='boys'>
+                <li>张颜齐</li>
+                <li>段浩男</li>
+            </ul>
+        </li>
+        <li><a href='#'>Producer</a>
+            <ul class='boys'>
+                <li>贺俊雄</li>
+            </ul>
+        </li>
+    </ul>
+
+</body>
+
+</html>
