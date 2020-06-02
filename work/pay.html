@@ -1,0 +1,453 @@
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+<!-- saved from url=(0039)http://app.m.jeez.cn//index.html?ccid=0 -->
+<html>
+
+<head id="Head1">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>向商家付款</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="msapplication-tap-highlight" content="no">
+
+  <script src="./jquery-3.3.1.min.js" language="javascript" type="text/javascript"></script>
+  <script src="./jquery.qrcode.min.js" language="javascript" type="text/javascript"></script>
+</head>
+<style>
+  * {
+    box-sizing: border-box;
+    -webkit-touch-callout:none;
+    -webkit-user-select:none;
+    -khtml-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    user-select:none;
+  }
+
+  html,
+  body {
+    padding: 0px;
+    margin: 0px;
+    width: 100%;
+    height: 100%;
+  }
+
+  .payMoney {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .payMoney_header {
+    flex: 1;
+  }
+
+  .payMoney_header .title {
+    width: 100%;
+    margin-top: 50px;
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+  }
+
+  .payMoney_header .tradeName {
+    width: 100%;
+    text-align: center;
+    font-size: 16px;
+    color: #666;
+  }
+
+  .moneyAmount {
+    display: flex;
+    margin: 20px 15px 20px 15px;
+    border: 1px solid #D6D6D6;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  .money {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0px 10px;
+  }
+
+  .moneyAmount .lableDesc {
+    padding: 15px 10px;
+  }
+
+  .moneyAmount .moneyIcon {
+    padding: 15px 10px 15px 0px;
+  }
+
+  .remark-div {
+    display: flex;
+    margin: 20px 15px 20px 15px;
+    border: 1px solid #D6D6D6;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: bold;
+    padding-right: 5px;
+  }
+
+  .remark-div .lableDesc {
+    padding: 15px 10px;
+  }
+
+  .remark-div .remark {
+    flex: 1;
+    border: none;
+    outline: 0;
+    box-shadow:none; 
+    -webkit-user-select: auto;
+    -moz-user-select: auto;
+    font-size: 16px;
+    text-align: right;
+    background-color: transparent;
+  }
+
+  .inputBox {
+    width: 100%;
+    display: flex;
+    bottom: 0px;
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  .inputNum {
+    flex: 3;
+  }
+
+  .inputNum_right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+
+  .inputGroup {
+    width: 100%;
+    display: flex;
+    border-top: 1px solid #D6D6D6;
+  }
+
+  .inputItem {
+    height: 60px;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-left: 1px solid #D6D6D6;
+  }
+
+  .inputItem_delete {
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top: 1px solid #D6D6D6;
+  }
+
+  .inputGroup:last-child {
+    border-bottom: 1px solid #D6D6D6;
+  }
+
+  .inputGroup .inputItem:first-child {
+    border-right: 0px;
+  }
+
+  .inputGroup .inputItem:last-child {
+    border-right: 1px solid #D6D6D6;
+  }
+
+  .payButton {
+    flex: 1;
+    width: 100%;
+    background-color: #06BD03;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+  }
+
+  #loadBox {
+    display: none;
+  }
+  .modal {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .loading {
+    background-color: #333;
+    opacity: 0.7;
+    border-radius: 5px;
+    color: #fff;
+  }
+  .loadingContent{
+    width: 100px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .pulse-container {
+    width: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .pulse-bubble {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background-color: #3ff9dc;
+  }
+
+  .pulse-bubble-1 {
+    animation: pulse .4s ease 0s infinite alternate;
+  }
+
+  .pulse-bubble-2 {
+    animation: pulse .4s ease .2s infinite alternate;
+  }
+
+  .pulse-bubble-3 {
+    animation: pulse .4s ease .4s infinite alternate;
+  }
+
+  @keyframes pulse {
+    0% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    100% {
+      opacity: .25;
+      transform: scale(.75);
+    }
+  }
+
+  .codeError {
+    width: 100%;
+    text-align: center;
+    padding-top: 20px;
+    font-size: 18px;
+    display: none;
+  }
+</style>
+
+<body>
+  <div class="payMoney">
+    <!-- 头部 -->
+    <div class="payMoney_header">
+      <div class="title">
+        <span id="merchantName"></span>
+      </div>
+      <div class="tradeName">
+        <span id="tradeName"></span>
+      </div>
+      <div class="moneyAmount">
+        <div class="lableDesc">金额：</div>
+        <div class="money" id="amount" onclick="moneyClick"></div>
+        <div class="moneyIcon">￥</div>
+      </div>
+      <div class="remark-div">
+        <div class="lableDesc">备注：</div>
+        <input class="remark" id="remark" maxlength="32"/>
+      </div>
+    </div>
+    <!-- 输入按钮 -->
+    <div class="inputBox">
+      <div class="inputNum">
+        <div class="inputGroup">
+          <div class="inputItem" onclick="inputClick('1')">1</div>
+          <div class="inputItem" onclick="inputClick('2')">2</div>
+          <div class="inputItem" onclick="inputClick('3')">3</div>
+        </div>
+        <div class="inputGroup">
+          <div class="inputItem" onclick="inputClick('4')">4</div>
+          <div class="inputItem" onclick="inputClick('5')">5</div>
+          <div class="inputItem" onclick="inputClick('6')">6</div>
+        </div>
+        <div class="inputGroup">
+          <div class="inputItem" onclick="inputClick('7')">7</div>
+          <div class="inputItem" onclick="inputClick('8')">8</div>
+          <div class="inputItem" onclick="inputClick('9')">9</div>
+        </div>
+        <div class="inputGroup">
+          <div class="inputItem"></div>
+          <div class="inputItem" onclick="inputClick('0')">0</div>
+          <div class="inputItem" onclick="inputClick('.')">.</div>
+        </div>
+      </div>
+      <div class="inputNum_right">
+        <div class="inputItem_delete" onclick="inputClick('x')">删除</div>
+        <div class="payButton" onclick="toPay()">付款</div>
+      </div>
+    </div>
+  </div>
+  <!-- loading框 -->
+  <div id="loadBox">
+    <div class="modal">
+      <div class="loading">
+        <div class="loadingContent">
+          <div class="pulse-container">
+            <div class="pulse-bubble pulse-bubble-1"></div>
+            <div class="pulse-bubble pulse-bubble-2"></div>
+            <div class="pulse-bubble pulse-bubble-3"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="codeError">
+    <span>二维码有误</span>
+  </div>
+</body>
+<script>
+
+
+  var locationHref = decodeURIComponent(window.location.href);
+  var parameter = locationHref.split("?")[1];
+  var guid = "";
+  var merchantName = "";
+  var tradeName = "";
+  try {
+    guid = parameter.split("guid=")[1].split("&")[0];
+    merchantName = parameter.split("merchantName=")[1].split("&")[0];
+    tradeName = parameter.split("tradeName=")[1].split("&")[0];
+  } catch (error) {
+    
+  }
+
+  //初始化页面
+  if(guid == "" || merchantName == "" || tradeName == ""){
+    $(".payMoney").hide();
+    $(".codeError").show();
+  }
+  $("#merchantName")[0].innerHTML = merchantName;
+  $("#tradeName")[0].innerHTML = tradeName;
+
+  //区分微信支付和支付宝支付
+  function IsWeixinOrAlipay() {
+    var ua = window.navigator.userAgent.toLowerCase();
+    //判断是不是微信
+    if (ua.toLowerCase().indexOf("micromessenger") > 0) {
+      return "WeiXIN";
+    }
+    //判断是不是支付宝
+    if (ua.toLowerCase().indexOf("alipayclient") > 0) {
+      return "Alipay";
+    }
+    //哪个都不是
+    return "false";
+  }
+
+  //判断字符串是否为数字
+  function checkRate(input) {
+    if (!isNaN(input)) {
+      var index = input.indexOf(".");
+      if (index < 0) {
+        return true;
+      } else if ((input.length - (index + 1)) <= 2) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  }
+
+  //点击金额收起软键盘
+  var moneyClick = function () {
+    $('#remark').blur();
+  }
+  $('#remark').on('blur',function(){
+    window.scroll(0,0);
+  });
+
+  //点击事件
+  var inputClick = function (text) {
+    var amountStr = $("#amount")[0].innerText;
+    if (text != "x") {
+      amountStr = amountStr + text;
+      if (checkRate(amountStr)) {
+        $("#amount")[0].innerText = amountStr;
+      }
+    } else {
+      if (amountStr != "") {
+        amountStr = amountStr.substring(0, amountStr.length - 1);
+        $("#amount")[0].innerText = amountStr;
+      }
+    }
+
+  }
+
+  //确认支付-付款
+  var toPay = function () {
+    if($("#amount")[0].innerText == ""){
+      return;
+    }
+    
+    var orderNo = new Date().getTime() + (Math.random()*1000).toFixed(0);                   //交易编号 
+    var amount = Math.round(($("#amount")[0].innerText / 1) * 100);                                     //交易金额 
+    var remark = $("#remark").val();                                                        //备注
+
+    var bankNo = "0000001";                                                                 //支付渠道
+    if (IsWeixinOrAlipay() == "WeiXIN") {
+      bankNo = "0000001";
+    } else if (IsWeixinOrAlipay() == "Alipay") {
+      bankNo = "0000002";
+    }
+    var notifyUrl = "";                                                                     //异步支付通知回调地址
+    var terminalIp = "192.168.2.24";                                                                    //终端IP
+    var productId = guid;                                                                   //商品ID
+    var mallIndex = "";
+
+
+    var url = "http://pay.jeez.cn:8084/api/Pay/QRCodePay";
+    var data = {
+      guid: guid,                                                           //
+      orderNo: orderNo,                                                     //交易编号 
+      amount: amount,                                                       //交易金额 
+      remark: remark,                                                       //备注
+      bankNo: bankNo,                                                       //支付渠道
+      notifyUrl: notifyUrl,                                                 //异步支付通知回调地址
+      terminalIp: terminalIp,                                               //终端IP
+      productId: productId,                                                 //商品ID
+      mallIndex: mallIndex                                                  //支付成功后跳转地址
+    };
+    $("#loadBox").show();
+    $.ajax({
+      type: "POST",
+      url: url,
+      data: JSON.stringify(data),
+      dataType: "json",
+      contentType: 'application/json;charset=utf-8',
+      success: function (res) {
+        console.log("success", res)
+        window.location.href = res.apiStr;
+      },
+      error: function (res) {
+        $("#loadBox").hide();
+        alert("付款失败"+res.errorMessage);
+      }
+    });
+  }
+
+
+
+</script>
+
+</html>

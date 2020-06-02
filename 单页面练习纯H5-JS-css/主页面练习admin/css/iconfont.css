@@ -1,0 +1,24 @@
+@font-face {
+    font-family: 'icon';
+    src: url('./icon.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+}
+.van-icon {
+    font-family: "iconfont", "vanIcon","icon" !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+span.van-icon-tips:before {
+	content: "\e901";
+	color: #cf3726;
+}
