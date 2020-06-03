@@ -1,0 +1,86 @@
+<!doctype html public "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<head>
+<!-- <meta http-equiv="Content-Type" content="text/html; charset=gb2312" /> -->
+<style type="text/css" media="all">
+a,a:visited {color:#333;text-decoration:none;}
+a:hover {color:#f60;}
+body,td {font:13px "Geneva","宋体", "Arial", "Helvetica",sans-serif;}
+ul,li {margin:0;padding:0;list-style:none;}
+h1,h2,h3,h4,h5,h6 {margin:0;padding:0;}
+h1 {padding:5px;color:#900;font:16px bold "Geneva","宋体", "Arial", "Helvetica",sans-serif;}
+h1 small {font-size:11px;font-weight:normal;color:#660;}
+.tree_out {width:200px;}
+.tree_1 .tree_tit a,
+.tree_1 .tree_tit a:visited,
+.tree_2 .tree_tit a,
+.tree_2 .tree_tit a:visited {margin-left:10px;padding-left:40px;color:#003;font-size:12px;display:block;}
+.tree_2 .tree_tit h3.Lst a {line-height:250%;background: #FF0000;}
+.tree_2 .tree_txt {display:none;}
+.tree_1 .tree_txt ul li {padding-left:65px;line-height:150%;}
+.tree_1 .tree_txt .num {color:#e00;}
+</style>
+<script type="text/javascript">
+    <!--
+    function ExChgClsName(Obj,NameA,NameB){
+        var Obj=document.getElementById(Obj)?document.getElementById(Obj):Obj;
+        Obj.className=Obj.className==NameA?NameB:NameA;
+    }
+    function showmenu_tree(iNo){
+        ExChgClsName("tree_id__"+iNo,"tree_1","tree_2");
+    }
+    -->
+</script>
+</head>
+<body>
+<div class="tree_out">
+    <div class="tree_1" id="tree_id__0">
+        <div class="tree_tit"><h3><a href="javascript:showmenu_tree(0);">一号主菜单</a></h3></div>
+        <div class="tree_txt">
+            <ul>
+                <li><a>一号子菜单</a></li>
+                <li><a>二号子菜单</a></li>
+                <li><a>三号子菜单</a></li>
+                <li><a>四号子菜单</a></li>
+                <li class="Lst"><a>五号子菜单</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="tree_2" id="tree_id__1">
+        <div class="tree_tit"><h3><a href="javascript:showmenu_tree(1);">二号主菜单</a></h3></div>
+        <div class="tree_txt">
+            <ul>
+                <li><a>一号子菜单</a></li>
+                <li><a>二号子菜单</a></li>
+                <li><a>三号子菜单</a></li>
+                <li><a>四号子菜单</a></li>
+                <li class="Lst"><a>五号子菜单</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="tree_2" id="tree_id__2">
+        <div class="tree_tit"><h3><a href="javascript:showmenu_tree(2);">三号主菜单</a></h3></div>
+        <div class="tree_txt">
+            <ul>
+                <li><a>一号子菜单</a></li>
+                <li><a>二号子菜单</a></li>
+                <li><a>三号子菜单</a></li>
+                <li><a>四号子菜单</a></li>
+                <li class="Lst"><a>五号子菜单</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="tree_2" id="tree_id__3">
+    <div class="tree_tit"><h3><a href="javascript:showmenu_tree(3);">四号主菜单</a></h3></div>
+    <div class="tree_txt">
+         <ul>
+            <li><a>一号子菜单</a></li>
+            <li><a>二号子菜单</a></li>
+            <li><a>三号子菜单</a></li>
+            <li><a>四号子菜单</a></li>
+            <li class="Lst"><a>五号子菜单</a></li>
+         </ul>
+    </div>
+    </div>
+</div>
+</body>
+</html>
