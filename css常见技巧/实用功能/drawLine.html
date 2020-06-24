@@ -1,0 +1,175 @@
+<html>
+
+<head></head>
+
+<body>
+    <canvas id="myCanvas" width="1000" height="1000"></canvas>
+    <script type="text/javascript">
+        var c = document.getElementById("myCanvas");
+        var a_canvas = c;
+
+        c.onmousemove = onMouseMove;
+
+        var cxt = c.getContext("2d");
+        cxt.fillStyle = "#FFFFFF";
+        cxt.fillRect(0, 0, 1000, 1000);
+        cxt.moveTo(10, 10);
+        cxt.lineTo(150, 50);
+        cxt.lineTo(10, 50);
+        cxt.stroke();
+
+        // 添加线段
+        cxt.beginPath();
+        cxt.fillStyle = 'blue'
+        cxt.arc(70, 18, 15, 0, Math.PI * 2, true);
+        cxt.closePath();
+        cxt.fill();
+
+        // 添加图片
+        // cxt.beginPath();
+        // var img = new Image()
+        // img.src = "../iamge/favicon.png"
+        // cxt.closePath();
+        // cxt.drawImage(img, 0, 0);
+
+        // 添加文字
+        cxt.font = '10 Arial';
+        cxt.strokeStyle = 'rgb(0,233,0)';
+        cxt.textAlign = 'center'
+        cxt.strokeText('九段刀客', 100, 10);//居中后x坐标失效
+
+        // 添加文字
+        cxt.font = '10 Arial';
+        cxt.strokeStyle = 'rgb(0,233,0)';
+        cxt.textAlign = 'center'
+        cxt.strokeText('AAAAAAAAAAAAAAA', 100, 10);//居中后x坐标失效
+
+        var data = [1000, 1300, 2000, 3000, 2000, 2000, 1000, 1500, 2000, 5000, 1000, 1000];
+        var xinforma = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'];
+
+        //划竖线
+        cxt.moveTo(10, 10);
+        cxt.lineTo(10, 300);
+        //画横线
+        cxt.lineTo(600, 300);
+        cxt.lineWidth = 1;
+        cxt.strokeStyle = "black";
+        cxt.stroke();
+
+
+
+
+        //数据驱动
+
+        // {
+        //     'date'：'',
+        //     'value':'',
+        //     'volume'：'',
+
+        // }
+
+
+
+
+
+
+
+
+
+        var realheight = a_canvas.height - 15;
+        var realwidth = a_canvas.width - 40;
+        // 描绘边框
+        var grid_cols = data.length + 1;
+        var grid_rows = 4;
+        var cell_height = realheight / grid_rows;
+        var cell_width = realwidth / grid_cols;
+
+
+        var max_v = 0;
+
+        for (var i = 0; i < data.length; i++) {
+            if (data[i] > max_v) { max_v = data[i] };
+        }
+        max_v = max_v * 1.1;
+        // 将数据换算为坐标
+        var points = [];
+        for (var i = 0; i < data.length; i++) {
+            var v = data[i];
+            var px = cell_width * (i + 1);
+            var py = realheight - realheight * (v / max_v);
+            //alert(py);
+            points.push({ "x": px, "y": py });
+        }
+
+        //绘制坐标图形
+        for (var i in points) {
+            var p = points[i];
+            cxt.beginPath();
+            cxt.fillStyle = "green";
+            cxt.fillRect(p.x, p.y, 15, realheight - p.y);
+
+            cxt.fill();
+        }
+
+
+        //添加文字
+        for (var i in points) {
+            var p = points[i];
+            cxt.beginPath();
+            cxt.fillStyle = "black";
+            cxt.fillText(data[i], p.x + 1, p.y - 15);
+            cxt.fillText(xinforma[i], p.x + 1, realheight + 12);
+            cxt.fillText('月份', realwidth, realheight + 12);
+            cxt.fillText('资金量', 0, 10);
+        }
+
+
+
+
+        //绘制tooltip提示文字
+        function drawToolTip(context, txtLoc, x, y) {
+            context.save();
+            var padding = 3;
+            var font = "16px arial";
+            context.font = font;
+            context.textBaseline = 'bottom';
+            context.fillStyle = 'yellow';
+
+            //绘制ToolTip背景
+            var width = context.measureText(txtLoc).width;
+            var height = parseInt(font, 10);
+            context.fillRect(x, y - height, width + padding * 2, height + padding * 2);
+
+            //绘制ToolTip文字
+            context.fillStyle = '#000';
+            context.fillText(txtLoc, x + padding, y + padding);
+
+            context.restore();
+        }
+
+        //当前选中的圆圈
+        var previousSelectedCircle;
+        //鼠标移动事件
+        function onMouseMove(e) {
+            // 清除之前选择的圆圈
+            if (previousSelectedCircle != null) {
+                previousSelectedCircle.isSelected = false;
+                previousSelectedCircle = null;
+            }
+            // 取得画布上被单击的点
+            var clickX = e.pageX - 5;
+            var clickY = e.pageY - 5;
+
+            if (clickX > 300 && clickY > 300) {
+
+
+                drawToolTip(cxt, '我是', 200, 200)
+            }
+
+
+        }
+    </script>
+
+</body>
+
+</html>

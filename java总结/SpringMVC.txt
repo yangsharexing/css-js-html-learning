@@ -1,0 +1,7 @@
+1：DispatcherServlet继承关系
+HttpServletBean extends HttpServlet
+FrameworkServlet extends HttpServletBean 
+DispatcherServlet extends FrameworkServlet
+
+2、HiddenHttpMethodFilter
+https://blog.csdn.net/geloin/article/details/7444321
